@@ -16,11 +16,18 @@
     <script src="firebase.js"></script>
 </head>
 
-<body>
+<body onload = "readRecordData">
     <h1>ランキングページ</h1>
     <div id="logout-button">
         <p>ログアウト</p>
     </div>
+
+    <a href="mypage.html">MyPage</a>
+
+     <div id="getData"></div>
+    
+
+
     <script>
         // ログインしているか判定
         firebase.auth().onAuthStateChanged(function (user) {
@@ -38,15 +45,20 @@
                 console.log(error)
             });
         };
-        // realtime databaseの処理
+ // realtime databaseの処理
         var database = firebase.database();
         // firebaseから全員の記録を持ってくる関数
         function readRecordData() {
             firebase.database().ref('/records/').once('value').then(function (snapshot) {
                 var data = snapshot.val()
                 console.log(data)
+                //document.getElementById("getData").textContent = data;
             });
-        }
+        } 
+
+ 
+
+
     </script>
 </body>
 
