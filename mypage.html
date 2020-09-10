@@ -18,7 +18,10 @@
 
 <body>
     <div id="logout-button">
-        <p>ログアウト</p>
+        <a>ログアウト</a>
+    </div>
+    <div>
+        <a href="index.html">ホーム</a>
     </div>
     <script>
         // ログインしているか判定
@@ -46,12 +49,16 @@
             });
         }
         // firebaseからuserの記録を持ってくる関数
-        function readRecordData(userId) {
-            firebase.database().ref('/records/' + userId).once('value').then(function (snapshot) {
-                var data = snapshot.val()
-                console.log(data)
+        // ここにページが読み込まれたら読み込む処理を書く
+        window.onload = function readRecordData() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
+                    var data = snapshot.val()
+                    console.log(data)
+                });
             });
         }
+        // データ
     </script>
 </body>
 
