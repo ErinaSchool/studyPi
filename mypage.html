@@ -16,7 +16,7 @@
     <script src="firebase.js"></script>
 </head>
 
-<body onload="readRecordData();">
+<body onload="init();">
     <div id="logout-button">
         <a>ログアウト</a>
     </div>
@@ -33,14 +33,6 @@
     </form>
 
     <script>
-        // ログインしているか判定
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                console.log(user.uid)
-            } else {
-                console.log('No user is signed in.')
-            }
-        });
         // ログアウトの処理
         document.getElementById("logout-button").onclick = function () {
             firebase.auth().signOut().then(function () {
@@ -49,15 +41,7 @@
                 console.log(error)
             });
         };
-        // realtime databaseの処理
-        var database = firebase.database();
-        // firebaseに記録を書き込む関数
-        function writeRecordData(userId, term) {
-            firebase.database().ref('records/' + userId).push().set({
-                date: Date.now(),
-                term: term
-            });
-        }
+
         // firebaseからuserの記録を持ってくる関数
         // ここにページが読み込まれたら読み込む処理を書く
         function readRecordData() {
@@ -70,6 +54,22 @@
                     document.getElementById("getData").textContent = json;
                     // データを表示する
                 });
+            });
+        }
+
+        function init() {
+            is_login()
+            readRecordData()
+        }
+
+        // ログインしているか判定し、していなければログインページへ飛ばす関数
+        function is_login() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    console.log('userId: ' + user.uid)
+                } else {
+                    window.location.href = 'login.html';
+                }
             });
         }
 
@@ -89,7 +89,6 @@
                 });
             }
         }
-       
     </script>
 </body>
 
