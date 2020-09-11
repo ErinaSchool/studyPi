@@ -24,6 +24,14 @@
         <a href="index.html">ホーム</a>
     </div>
     <div id="getData"></div>
+
+    <form name="newRecord">
+        <input name="date" type="date">
+        <input name="time" type="time">
+        <input name="term" type="number">
+        <input type="button" onclick="createRecord()" value='新規作成'>
+    </form>
+
     <script>
         // ログインしているか判定
         firebase.auth().onAuthStateChanged(function (user) {
@@ -64,6 +72,24 @@
                 });
             });
         }
+
+        // 勉強時間新規登録の処理
+        function createRecord() {
+            const date = document.forms.newRecord.date.value
+            const time = document.forms.newRecord.time.value
+            const term = document.forms.newRecord.term.value
+            if (!date || !time || !term) {
+                alert("未入力の項目があります")
+            } else {
+                const userId = firebase.auth().currentUser.uid
+                firebase.database().ref('records/' + userId).push().set({
+                    date: date,
+                    time: time,
+                    term: term
+                });
+            }
+        }
+       
     </script>
 </body>
 
