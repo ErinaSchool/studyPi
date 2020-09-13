@@ -41,6 +41,14 @@
         <input type="button" onclick="createRecord()" value='新規作成'>
     </form>
 
+    <button type="button" onClick="drawWeeklyRecordBar()">
+        Weelkly
+    </button>
+
+    <button type="button" onClick="drawMonthlyRecordBar()">
+        Monthly
+    </button>
+
     <div style="top:60px; left:10px; width:800px; height:800px;">
         <canvas id="myChart"></canvas>
     </div>
@@ -247,7 +255,7 @@
                             barData[10] += Number(data[key]['term'])
                         } else if (diff == 11) {
                             barData[11] += Number(data[key]['term'])
-                        } 
+                        }
                     }
 
                     console.log(barData)
