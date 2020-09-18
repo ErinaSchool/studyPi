@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- -----------firebase CDN------------- -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+    
+    <script src="../JavaScript/firebase.js"></script>
+
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+        integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+        crossorigin="anonymous"></script>
+
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+</head>
+
+<body onload="init();">
+    <div id="logout-button">
+        <a>ログアウト</a>
+    </div>
+    <div>
+        <a href="index.html">ホーム</a>
+    </div>
+    <div id="getData"></div>
+    <form name="newRecord">
+        <input name="date" type="date">
+        <input name="time" type="time">
+        <input name="term" type="number">
+        <input type="button" onclick="createRecord()" value='新規作成'>
+    </form>
+
+    <button type="button" onClick="drawWeeklyRecordBar()">
+        Weelkly
+    </button>
+
+    <button type="button" onClick="drawMonthlyRecordBar()">
+        Monthly
+    </button>
+
+    <div style="top:60px; left:10px; width:800px; height:800px;">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="../JavaScript/mypage.js"></script>
+</body>
+
+</html>
