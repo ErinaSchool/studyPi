@@ -39,7 +39,7 @@ function createRecord() {
             time: time,
             term: term
         });
-        drawRecordChart()
+        drawWeeklyRecordBar()
         document.forms.newRecord.reset()
     }
 }
