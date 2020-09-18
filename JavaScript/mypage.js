@@ -1,31 +1,18 @@
-// ログアウトの処理
-document.getElementById("logout-button").onclick = function () {
+// ページが読み込まれた時に実行される関数
+function init() {
+    is_login()
+    drawWeeklyRecordBar()
+    readRecordData()
+}
+
+// ログアウトの処理をする関数
+function logout() {
     firebase.auth().signOut().then(function () {
         location.href = './login.html';
     }).catch(function (error) {
         console.log(error)
     });
 };
-
-// firebaseからuserの記録を持ってくる関数
-// ここにページが読み込まれたら読み込む処理を書く
-function readRecordData() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
-            var data = snapshot.val()
-            console.log(data);
-            var json = JSON.stringify(data);
-            console.log(json[1]);
-            document.getElementById("getData").textContent = json;
-            // データを表示する
-        });
-    });
-}
-
-function init() {
-    is_login()
-    drawWeeklyRecordBar()
-}
 
 // ログインしているか判定し、していなければログインページへ飛ばす関数
 function is_login() {
@@ -38,7 +25,7 @@ function is_login() {
     });
 }
 
-// 勉強時間新規登録の処理
+// 勉強記録の新規作成をする関数
 function createRecord() {
     const date = document.forms.newRecord.date.value
     const time = document.forms.newRecord.time.value
@@ -57,8 +44,7 @@ function createRecord() {
     }
 }
 
-
-
+// 週ごとの勉強時間グラフを描く関数
 function drawWeeklyRecordBar() {
     firebase.auth().onAuthStateChanged(function (user) {
         firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
@@ -151,6 +137,7 @@ function drawWeeklyRecordBar() {
     });
 }
 
+// 月ごとの勉強時間グラフを描く関数
 function drawMonthlyRecordBar() {
     firebase.auth().onAuthStateChanged(function (user) {
         firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
@@ -256,6 +243,21 @@ function drawMonthlyRecordBar() {
                 }
             });
 
+        });
+    });
+}
+
+// firebaseからuserの記録を持ってくる関数
+// ここにページが読み込まれたら読み込む処理を書く
+function readRecordData() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
+            var data = snapshot.val()
+            console.log(data);
+            var json = JSON.stringify(data);
+            console.log(json[1]);
+            document.getElementById("getData").textContent = json;
+            // データを表示する
         });
     });
 }

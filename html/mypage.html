@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
-    
+
     <script src="../JavaScript/firebase.js"></script>
 
     <!-- chart.js -->
@@ -25,34 +25,72 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
         integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
         crossorigin="anonymous"></script>
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="../css/mypage.css">
 </head>
 
 <body onload="init();">
-    <div id="logout-button">
-        <a>ログアウト</a>
-    </div>
-    <div>
-        <a href="index.html">ホーム</a>
-    </div>
-    <div id="getData"></div>
-    <form name="newRecord">
-        <input name="date" type="date">
-        <input name="time" type="time">
-        <input name="term" type="number">
-        <input type="button" onclick="createRecord()" value='新規作成'>
-    </form>
+    <!-- ヘッダー -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="index.html">ランキング</a></li>
+                <li onclick="logout();">ログアウト</li>
+            </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="index.html">ランキング</a></li>
+        <li onclick="logout();">ログアウト</li>
+    </ul>
 
-    <button type="button" onClick="drawWeeklyRecordBar()">
+    <!-- グラフを表示 -->
+    <div class="record-graph">
+        <canvas id="myChart"></canvas>
+    </div>
+    <button type="button" class="waves-effect waves-light btn" onClick="drawWeeklyRecordBar()">
         Weelkly
     </button>
 
-    <button type="button" onClick="drawMonthlyRecordBar()">
+    <button type="button" class="waves-effect waves-light btn" onClick="drawMonthlyRecordBar()">
         Monthly
     </button>
 
-    <div style="top:60px; left:10px; width:800px; height:800px;">
-        <canvas id="myChart"></canvas>
+    <!-- ユーザーの記録一覧を表示 -->
+    <div id="getData"></div>
+
+    <!-- 記録の新規作成の処理 -->
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    <input name="date" type="date">
+                    <label>日付</label>
+                </div>
+                <div class="input-field col s4">
+                    <input name="time" type="time">
+                    <label>時間</label>
+                </div>
+                <div class="input-field col s4">
+                    <input name="term" type="number">
+                    <label>勉強時間（分）</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="button" class="waves-effect waves-light btn" onclick="createRecord()" value='新規作成'>
+            </div>
+        </form>
     </div>
+
 
     <script src="../JavaScript/mypage.js"></script>
 </body>
