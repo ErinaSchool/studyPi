@@ -15,47 +15,14 @@
   <!-- -------------firebase ui CDN ------------------- -->
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-  <script src="firebase.js"></script>
+
+  <script src="../JavaScript/firebase.js"></script>
 </head>
 
 <body>
-  ​
-  ​
-  ​
   <div id="firebaseui-auth-container"></div>
-  ​
-  <script>
-    const provider = new firebase.auth.GoogleAuthProvider()
 
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-    var uiConfig = {
-      callbacks: {
-        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-          // User successfully signed in.
-          // Return type determines whether we continue the redirect automatically
-          // or whether we leave that to developer to handle.
-          return true;
-        },
-        uiShown: function () {
-          // The widget is rendered.
-          // Hide the loader.
-          document.getElementById('loader').style.display = 'none';
-        }
-
-
-      },
-      // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-      signInFlow: 'popup',
-      signInSuccessUrl: './mypage.html',
-      signInOptions: [
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ],
-    };
-
-    ui.start('#firebaseui-auth-container', uiConfig);
-  </script>
-  ​
+  <script src="../JavaScript/login.js"></script>
 </body>
 
 </html>
