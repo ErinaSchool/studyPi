@@ -7,16 +7,16 @@ function init() {
 
 // ログアウトの処理をする関数
 function logout() {
-    firebase.auth().signOut().then(function () {
+    firebase.auth().signOut().then(function() {
         location.href = './login.html';
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log(error)
     });
 };
 
 // ログインしているか判定し、していなければログインページへ飛ばす関数
 function is_login() {
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log('userId: ' + user.uid)
         } else {
@@ -46,20 +46,20 @@ function createRecord() {
 
 // 週ごとの勉強時間グラフを描く関数
 function drawWeeklyRecordBar() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
+    firebase.auth().onAuthStateChanged(function(user) {
+        firebase.database().ref('/records/' + user.uid).once('value').then(function(snapshot) {
             var data = snapshot.val()
             var now = moment().format('YYYY-MM-DD')
             var barLabels = [
-                moment(now, 'YYYY-MM-DD').subtract(6, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').subtract(5, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').subtract(4, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').subtract(3, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').subtract(2, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').subtract(1, 'days').format('DD') + '日',
-                moment(now, 'YYYY-MM-DD').format('DD') + '日'
-            ]
-            // 配列の番号はx日前を示している。例　barData[2] 2日前の勉強時間
+                    moment(now, 'YYYY-MM-DD').subtract(6, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').subtract(5, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').subtract(4, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').subtract(3, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').subtract(2, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').subtract(1, 'days').format('DD') + '日',
+                    moment(now, 'YYYY-MM-DD').format('DD') + '日'
+                ]
+                // 配列の番号はx日前を示している。例　barData[2] 2日前の勉強時間
             var barData = [
                 0, 0, 0, 0, 0, 0, 0
             ]
@@ -122,8 +122,8 @@ function drawWeeklyRecordBar() {
                             barPercentage: 0.5,
                         }]
                     },
-                    layout: {                             //レイアウト
-                        padding: {                          //余白設定
+                    layout: { //レイアウト
+                        padding: { //余白設定
                             left: 100,
                             right: 50,
                             top: 0,
@@ -139,25 +139,25 @@ function drawWeeklyRecordBar() {
 
 // 月ごとの勉強時間グラフを描く関数
 function drawMonthlyRecordBar() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
+    firebase.auth().onAuthStateChanged(function(user) {
+        firebase.database().ref('/records/' + user.uid).once('value').then(function(snapshot) {
             var data = snapshot.val()
             var now = moment().format('YYYY-MM-DD')
             var barLabels = [
-                moment(now, 'YYYY-MM-DD').subtract(11, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(10, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(9, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(8, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(7, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(6, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(5, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(4, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(3, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(2, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').subtract(1, 'month').format('MM') + '月',
-                moment(now, 'YYYY-MM-DD').format('MM') + '月'
-            ]
-            // 配列の番号はx日前を示している。例　barData[2] 2日前の勉強時間
+                    moment(now, 'YYYY-MM-DD').subtract(11, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(10, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(9, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(8, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(7, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(6, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(5, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(4, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(3, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(2, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').subtract(1, 'month').format('MM') + '月',
+                    moment(now, 'YYYY-MM-DD').format('MM') + '月'
+                ]
+                // 配列の番号はx日前を示している。例　barData[2] 2日前の勉強時間
             var barData = [
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ]
@@ -232,8 +232,8 @@ function drawMonthlyRecordBar() {
                             barPercentage: 0.5,
                         }]
                     },
-                    layout: {                             //レイアウト
-                        padding: {                          //余白設定
+                    layout: { //レイアウト
+                        padding: { //余白設定
                             left: 100,
                             right: 50,
                             top: 0,
@@ -250,14 +250,32 @@ function drawMonthlyRecordBar() {
 // firebaseからuserの記録を持ってくる関数
 // ここにページが読み込まれたら読み込む処理を書く
 function readRecordData() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        firebase.database().ref('/records/' + user.uid).once('value').then(function (snapshot) {
+    firebase.auth().onAuthStateChanged(function(user) {
+        firebase.database().ref('/records/' + user.uid).once('value').then(function(snapshot) {
             var data = snapshot.val()
-            console.log(data);
-            var json = JSON.stringify(data);
-            console.log(json[1]);
-            document.getElementById("getData").textContent = json;
-            // データを表示する
+                // データを表示する
+            for (let key in data) {
+                var oneData = data[key];
+
+                var table = document.getElementById('targetTable');
+                var newRow = table.insertRow();
+
+                newCell = newRow.insertCell();
+                var beforeDate = moment(oneData.date, "YYYY-MM-DD");
+                var afterDate = beforeDate.format('YYYY年MM月DD日');
+                newText = document.createTextNode(afterDate);
+                newCell.appendChild(newText);
+
+                newCell = newRow.insertCell();
+                var beforeTime = moment(oneData.time, "HH:mm");
+                var afterTime = beforeTime.format('HH時mm分');
+                newText = document.createTextNode(afterTime);
+                newCell.appendChild(newText);
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(oneData.term + "分");
+                newCell.appendChild(newText);
+            }
         });
     });
 }
