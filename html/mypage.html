@@ -65,30 +65,29 @@
         <div class="record-graph">
             <canvas id="myChart"></canvas>
         </div>
-        <button type="button" class="waves-effect waves-light btn" onClick="drawWeeklyRecordBar()">
-            Weelkly
-        </button>
-
-        <button type="button" class="waves-effect waves-light btn" onClick="drawMonthlyRecordBar()">
-            Monthly
-        </button>
     </div>
     <div id="table" class="col s12 white">
         <!-- ユーザーの記録一覧を表示 -->
-        <div id="getData"></div>
-        <table id="targetTable">
+        <table class="highlight" id="targetTable">
+            <thead>
             <tr>
                 <th id = date1>日付</th>
                 <th>時間</th>
                 <th>勉強時間</th>
                 <th></th>
             </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
         </table>
     </div>
 
     <!-- 記録の新規作成の処理 -->
-    <div class="row">
-        <form class="col s12" name="newRecord">
+    <details>
+        <summary>記録の新規作成</summary>
+         <div class="row">
+        <form class="col s6" name="newRecord">
             <div class="row">
                 <div class="input-field col s4">
                     <input name="date" type="date">
@@ -108,6 +107,7 @@
             </div>
         </form>
     </div>
+    </details>
 
     <script src="../JavaScript/mypage.js"></script>
 </body>
