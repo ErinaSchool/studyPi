@@ -24,14 +24,365 @@ function is_login() {
     });
 }
 
-// realtime databaseの処理
+//ランキング順に総時間を並び替えるために配列に入れる
+var object = {};
+var array = [];
+
+var dayobject = {};
+var dayarray = [];
+
+var weekobject = {};
+var weekarray = [];
+
+var monthobject = {};
+var montharray = [];
+
+var allobject = {};
+var allarray = [];
+
 var database = firebase.database();
-// firebaseから全員の記録を持ってくる関数
 function readRecordData() {
-    firebase.database().ref('/records/').once('value').then(function (snapshot) {
-        var data = snapshot.val();
-        console.log(JSON.stringify(data));
-        document.getElementById("getData").textContent = JSON.stringify(data);
-        var json = JSON.stringify(data);
-    });
-};
+        firebase.database().ref('/records/').once('value').then(function(snapshot) {
+
+            var data = snapshot.val();
+
+            var now = moment().format('YYYY-MM-DD');
+
+            var i = 0;
+            var j = 0;
+            var users_data = data;
+            //ユーザを1人1人見ていく
+            for (let users_key in users_data) {
+                var user_data = users_data[users_key]
+            
+                i++;
+
+                var OneDayData =0;
+                //特定ユーザの勉強時間を取得(jsonの深い層)
+                for (let user_key in user_data) {
+                    var diff = moment(now, 'YYYY-MM-DD').diff(moment(user_data[user_key]['date'], 'YYYY-MM-DD'), 'days');
+
+                    if (diff == 0) {
+                        OneDayData += Number(user_data[user_key]['term'])
+                    } 
+                }
+                //ユーザIDと総時間を連想配列に入れる(全ユーザ分)
+                object = {userid:users_key,term:OneDayData};
+                array[i-1] = object;
+
+            }
+
+            //総時間を基準に並び替え
+
+            array.sort(function (a, b) {
+                if (a.term > b.term) return -1;
+                if (a.term < b.term) return 1;
+                return 0;
+            });
+
+            //テーブルにセル付け足していく
+
+            for (let users_key in users_data){
+                j++;
+
+                var table = document.getElementById('targetTable');
+                var newRow = table.insertRow();
+
+                //ベスト3には王冠を表示
+                if (j == 1){
+                    var newCell = newRow.insertCell();
+                    var img1 = document.createElement("img"); 
+                    img1.src = "../img/f4-1.png"; 
+                    newCell.appendChild(img1);
+                }else if (j == 2){
+                    var newCell = newRow.insertCell();
+                    var img2 = document.createElement("img"); 
+                    img2.src = "../img/f4-2.png"; 
+                    newCell.appendChild(img2);
+                } else if(j == 3){
+                    var newCell = newRow.insertCell();
+                    var img3 = document.createElement("img"); 
+                    img3.src = "../img/f4-3.png"; 
+                    newCell.appendChild(img3);
+                }else {
+                    var newCell = newRow.insertCell();
+                    var newText = document.createTextNode(j);
+                    newCell.appendChild(newText);
+                }
+
+                //総時間を表示
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(array[j-1].term+ "分");
+                newCell.appendChild(newText);
+
+                //ログインしているユーザのIDを取得
+                const userId = firebase.auth().currentUser.uid;
+
+                //ログインしているユーザIDと配列に入っているユーザIDが正しければrowを色付け
+                if(userId == array[j-1].userid){
+                    newRow.style.backgroundColor = '#d3d3d3';
+                }
+
+            }
+
+            
+        });
+
+
+}
+
+
+
+function DayRecord() {
+        firebase.database().ref('/records/').once('value').then(function(snapshot) {
+
+            var data = snapshot.val()
+
+            var now = moment().format('YYYY-MM-DD');
+
+            var i = 0;
+            var j = 0;
+
+            var users_data = data;
+            for (let users_key in users_data) {
+                var user_data = users_data[users_key]
+            
+                i++;
+
+                var OneDayData =0;
+
+                for (let user_key in user_data) {
+                    var diff = moment(now, 'YYYY-MM-DD').diff(moment(user_data[user_key]['date'], 'YYYY-MM-DD'), 'days');
+
+                    if (diff == 0) {
+                        OneDayData += Number(user_data[user_key]['term'])
+                    } 
+   
+                }
+
+                dayobject = {userid:users_key,term:OneDayData};
+                dayarray[i-1] = dayobject;
+
+            }
+
+            dayarray.sort(function (a, b) {
+                if (a.term > b.term) return -1;
+                if (a.term < b.term) return 1;
+                return 0;
+            });
+
+
+            for (let users_key in users_data){
+                j++;
+
+                var table = document.getElementById('targetTable');
+                table.deleteRow(1);
+                var newRow = table.insertRow();
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(j);
+                newCell.appendChild(newText);
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(dayarray[j-1].term+ "分");
+                newCell.appendChild(newText);
+
+                const userId = firebase.auth().currentUser.uid;
+
+                if(userId == dayarray[j-1].userid){
+                    newRow.style.backgroundColor = '#d3d3d3';
+                }
+            }
+        });
+}
+
+function WeeklyRecord() {
+        firebase.database().ref('/records/').once('value').then(function(snapshot) {
+
+            var data = snapshot.val()
+
+            var now = moment().format('YYYY-MM-DD');
+
+
+            var i = 0;
+            var j = 0;
+            var users_data = data;
+            for (let users_key in users_data) {
+                var user_data = users_data[users_key]
+            
+                i++;
+
+                var WeeklyDayData =0;
+
+                for (let user_key in user_data) {
+                    var diff = moment(now, 'YYYY-MM-DD').diff(moment(user_data[user_key]['date'], 'YYYY-MM-DD'), 'days');
+
+                    if (0 <= diff && diff <= 6) {
+                        WeeklyDayData += Number(user_data[user_key]['term'])
+                    } 
+   
+                }
+                console.log(WeeklyDayData)
+
+                weekobject = {userid:users_key,term:WeeklyDayData};
+                weekarray[i-1] = weekobject;
+
+            }
+
+            weekarray.sort(function (a, b) {
+                if (a.term > b.term) return -1;
+                if (a.term < b.term) return 1;
+                return 0;
+            });
+
+
+
+            for (let users_key in users_data){
+                j++;
+
+                var table = document.getElementById('targetTable');
+                table.deleteRow(1);
+                var newRow = table.insertRow();
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(j);
+                newCell.appendChild(newText);
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(weekarray[j-1].term+ "分");
+                newCell.appendChild(newText);
+
+                const userId = firebase.auth().currentUser.uid;
+
+                if(userId == weekarray[j-1].userid){
+                    newRow.style.backgroundColor = '#d3d3d3';
+                }              
+            }
+        });
+}
+
+
+function MonthlyRecord() {
+
+        firebase.database().ref('/records/').once('value').then(function(snapshot) {
+
+            var data = snapshot.val()
+            var now = moment().format('YYYY-MM-DD');
+
+            var i = 0;
+            var j = 0;
+            var users_data = data;
+            for (let users_key in users_data) {
+                var user_data = users_data[users_key]
+            
+                i++;
+
+                var MonthlyDayData =0;
+
+                for (let user_key in user_data) {
+                    var diff = moment(now, 'YYYY-MM-DD').diff(moment(user_data[user_key]['date'], 'YYYY-MM-DD'), 'months');
+
+                    if (0 <= diff && diff <= 11) {
+                        MonthlyDayData += Number(user_data[user_key]['term'])
+                    } 
+   
+                }
+
+                monthobject = {userid:users_key,term:MonthlyDayData};
+                montharray[i-1] = monthobject;
+
+            }
+
+            montharray.sort(function (a, b) {
+                if (a.term > b.term) return -1;
+                if (a.term < b.term) return 1;
+                return 0;
+            });
+
+
+            for (let users_key in users_data){
+                j++;
+
+                var table = document.getElementById('targetTable');
+                table.deleteRow(1);
+                var newRow = table.insertRow();
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(j);
+                newCell.appendChild(newText);
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(montharray[j-1].term+ "分");
+                newCell.appendChild(newText);
+
+                const userId = firebase.auth().currentUser.uid;
+
+                if(userId == montharray[j-1].userid){
+                    newRow.style.backgroundColor = '#d3d3d3';
+                }
+            }
+        });
+
+}
+
+function AllRecord() {
+        firebase.database().ref('/records/').once('value').then(function(snapshot) {
+
+            var data = snapshot.val()
+            var now = moment().format('YYYY-MM-DD');
+
+            var i = 0;
+            var j = 0;
+            var users_data = data;
+            for (let users_key in users_data) {
+                var user_data = users_data[users_key]
+            
+                i++;
+
+                var AllDayData =0;
+
+                for (let user_key in user_data) {
+                    var diff = moment(now, 'YYYY-MM-DD').diff(moment(user_data[user_key]['date'], 'YYYY-MM-DD'), 'days');
+
+                    if (0 <= diff) {
+                        AllDayData += Number(user_data[user_key]['term'])
+                    } 
+   
+                }
+
+                allobject = {userid:users_key,term:AllDayData};
+                allarray[i-1] = allobject;
+
+            }
+            allarray.sort(function (a, b) {
+                if (a.term > b.term) return -1;
+                if (a.term < b.term) return 1;
+                return 0;
+            });
+
+            for (let users_key in users_data){
+                j++;
+
+                var table = document.getElementById('targetTable');
+                table.deleteRow(1);
+                var newRow = table.insertRow();
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(j);
+                newCell.appendChild(newText);
+
+                var newCell = newRow.insertCell();
+                var newText = document.createTextNode(allarray[j-1].term+ "分");
+                newCell.appendChild(newText);
+
+                const userId = firebase.auth().currentUser.uid;
+
+                if(userId == allarray[j-1].userid){
+                    newRow.style.backgroundColor = '#d3d3d3';
+                }
+                
+            }
+        });
+
+}
+
