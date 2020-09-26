@@ -33,11 +33,12 @@ function createRecord() {
     if (!date || !time || !term) {
         alert("未入力の項目があります")
     } else {
-        const userId = firebase.auth().currentUser.uid
-        firebase.database().ref('records/' + userId).push().set({
+        const user = firebase.auth().currentUser
+        firebase.database().ref('records/' + user.uid).push().set({
             date: date,
             time: time,
-            term: term
+            term: term,
+            name: user.displayName
         });
         drawWeeklyRecordBar()
         document.forms.newRecord.reset()
