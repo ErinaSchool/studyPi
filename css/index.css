@@ -15,3 +15,8 @@ td {
 img {
     width: 30%;
 }
+
+table {
+    width: 70%;
+    margin: 3px auto;
+}
