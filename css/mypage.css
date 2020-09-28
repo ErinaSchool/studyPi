@@ -5,13 +5,13 @@
     max-height: 800px;
 }
 
-/* table {
-    width: 100%;
+table {
+    width: 50%;
     border-collapse: separate;
     border-spacing: 0;
-} */
+}
 
-/* table th:first-child {
+ table th:first-child {
     border-radius: 5px 0 0 0;
 }
 
@@ -52,4 +52,16 @@ table tr:last-child td:first-child {
 
 table tr:last-child td:last-child {
     border-radius: 0 0 5px 0;
-} */
+}
+
+#new-record{
+    margin: 50px 115px;
+}
+
+#new-record-button{
+    margin: 25px 0px;
+}
+
+#targetTable{
+    margin: 10px 115px 50px 115px;
+}
