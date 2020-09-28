@@ -84,7 +84,7 @@
     </div>
 
     <!-- 記録の新規作成の処理 -->
-    <details>
+    <details id = "new-record">
         <summary>記録の新規作成</summary>
          <div class="row">
         <form class="col s6" name="newRecord">
@@ -102,7 +102,7 @@
                     <label>勉強時間（分）</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id ="new-record-button">
                 <input type="button" class="waves-effect waves-light btn" onclick="createRecord()" value='新規作成'>
             </div>
         </form>
