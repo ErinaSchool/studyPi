@@ -93,17 +93,17 @@ function readRecordData() {
             if (j == 1) {
                 var newCell = newRow.insertCell();
                 var img1 = document.createElement("img");
-                img1.src = "../img/f4-1.png";
+                img1.src = "./img/f4-1.png";
                 newCell.appendChild(img1);
             } else if (j == 2) {
                 var newCell = newRow.insertCell();
                 var img2 = document.createElement("img");
-                img2.src = "../img/f4-2.png";
+                img2.src = "./img/f4-2.png";
                 newCell.appendChild(img2);
             } else if (j == 3) {
                 var newCell = newRow.insertCell();
                 var img3 = document.createElement("img");
-                img3.src = "../img/f4-3.png";
+                img3.src = "./img/f4-3.png";
                 newCell.appendChild(img3);
             } else {
                 var newCell = newRow.insertCell();
@@ -191,17 +191,17 @@ function DayRecord() {
             if (j == 1) {
                 var newCell = newRow.insertCell();
                 var img1 = document.createElement("img");
-                img1.src = "../img/f4-1.png";
+                img1.src = "./img/f4-1.png";
                 newCell.appendChild(img1);
             } else if (j == 2) {
                 var newCell = newRow.insertCell();
                 var img2 = document.createElement("img");
-                img2.src = "../img/f4-2.png";
+                img2.src = "./img/f4-2.png";
                 newCell.appendChild(img2);
             } else if (j == 3) {
                 var newCell = newRow.insertCell();
                 var img3 = document.createElement("img");
-                img3.src = "../img/f4-3.png";
+                img3.src = "./img/f4-3.png";
                 newCell.appendChild(img3);
             } else {
                 var newCell = newRow.insertCell();
@@ -286,17 +286,17 @@ function WeeklyRecord() {
             if (j == 1) {
                 var newCell = newRow.insertCell();
                 var img1 = document.createElement("img");
-                img1.src = "../img/f4-1.png";
+                img1.src = "./img/f4-1.png";
                 newCell.appendChild(img1);
             } else if (j == 2) {
                 var newCell = newRow.insertCell();
                 var img2 = document.createElement("img");
-                img2.src = "../img/f4-2.png";
+                img2.src = "./img/f4-2.png";
                 newCell.appendChild(img2);
             } else if (j == 3) {
                 var newCell = newRow.insertCell();
                 var img3 = document.createElement("img");
-                img3.src = "../img/f4-3.png";
+                img3.src = "./img/f4-3.png";
                 newCell.appendChild(img3);
             } else {
                 var newCell = newRow.insertCell();
@@ -379,17 +379,17 @@ function MonthlyRecord() {
             if (j == 1) {
                 var newCell = newRow.insertCell();
                 var img1 = document.createElement("img");
-                img1.src = "../img/f4-1.png";
+                img1.src = "./img/f4-1.png";
                 newCell.appendChild(img1);
             } else if (j == 2) {
                 var newCell = newRow.insertCell();
                 var img2 = document.createElement("img");
-                img2.src = "../img/f4-2.png";
+                img2.src = "./img/f4-2.png";
                 newCell.appendChild(img2);
             } else if (j == 3) {
                 var newCell = newRow.insertCell();
                 var img3 = document.createElement("img");
-                img3.src = "../img/f4-3.png";
+                img3.src = "./img/f4-3.png";
                 newCell.appendChild(img3);
             } else {
                 var newCell = newRow.insertCell();
@@ -470,17 +470,17 @@ function AllRecord() {
             if (j == 1) {
                 var newCell = newRow.insertCell();
                 var img1 = document.createElement("img");
-                img1.src = "../img/f4-1.png";
+                img1.src = "./img/f4-1.png";
                 newCell.appendChild(img1);
             } else if (j == 2) {
                 var newCell = newRow.insertCell();
                 var img2 = document.createElement("img");
-                img2.src = "../img/f4-2.png";
+                img2.src = "./img/f4-2.png";
                 newCell.appendChild(img2);
             } else if (j == 3) {
                 var newCell = newRow.insertCell();
                 var img3 = document.createElement("img");
-                img3.src = "../img/f4-3.png";
+                img3.src = "./img/f4-3.png";
                 newCell.appendChild(img3);
             } else {
                 var newCell = newRow.insertCell();
